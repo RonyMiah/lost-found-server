@@ -4,14 +4,14 @@ import { userRole } from '@prisma/client';
 import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
 
-type User = {
+type CreateUserPayload = {
   userName: string;
   email: string;
   password: string;
   confirmPassword: string;
 };
 
-const createUser = async (payload: User) => {
+const createUser = async (payload: CreateUserPayload) => {
   if (!(payload?.password === payload.confirmPassword)) {
     throw new AppError(httpStatus.UNAUTHORIZED, 'Password Do not Match');
   }
