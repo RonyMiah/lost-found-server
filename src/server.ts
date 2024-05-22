@@ -22,6 +22,7 @@ async function main() {
     console.log(error);
     existHandaller();
   });
+
   process.on('unhandledRejection', (error) => {
     console.log(error);
     existHandaller();
