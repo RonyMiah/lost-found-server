@@ -10,6 +10,11 @@ type CreateUserPayload = {
   password: string;
   confirmPassword: string;
 };
+type CreateAdminPayload = {
+  userName: string;
+  email: string;
+  password: string;
+};
 
 const createUser = async (payload: CreateUserPayload) => {
   if (!(payload?.password === payload.confirmPassword)) {
@@ -34,6 +39,26 @@ const createUser = async (payload: CreateUserPayload) => {
   return returnData;
 };
 
+const createAdmin = async (payload: CreateAdminPayload) => {
+  const hashPassword = bcrypt.hashSync(payload.password, 12);
+
+  const role = userRole.ADMIN;
+
+  const userData = {
+    userName: payload.userName,
+    email: payload.email,
+    password: hashPassword,
+    role,
+  };
+
+  const result = await prisma.admin.create({
+    data: userData,
+  });
+  const { password, ...returnData } = result;
+  return returnData;
+};
+
 export const UserServices = {
   createUser,
+  createAdmin,
 };
