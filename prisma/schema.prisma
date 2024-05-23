@@ -22,6 +22,7 @@ model User {
 
   @@map("users")
 }
+
 model Admin {
   id         String     @id @default(uuid())
   userName   String     @unique
@@ -35,6 +36,22 @@ model Admin {
   @@map("admins")
 }
 
+model LostItem {
+  id            String           @id @default(uuid())
+  title         String
+  date          String
+  status        lostItemStatus
+  category      lostItemCategory
+  contactNumber String
+  color         String
+  brand         String
+  location      String
+  description   String
+  uploadImage   String           @default("")
+
+  @@map("lostitems")
+}
+
 enum userRole {
   SUPPER_ADMIN
   ADMIN
@@ -45,4 +62,19 @@ enum userStatus {
   ACTIVE
   BLOCKED
   DELETED
+}
+
+enum lostItemStatus {
+  LOST
+  FOUND
+}
+
+enum lostItemCategory {
+  Walet
+  Key
+  Mobail
+  Laptop
+  Bike
+  Car
+  Others
 }

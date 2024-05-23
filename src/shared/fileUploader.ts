@@ -2,7 +2,8 @@ import multer from 'multer';
 import path from 'path';
 import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs';
-import { ICloudinaryResponse, IFile } from '../app/interfaces/file';
+
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -25,12 +26,12 @@ cloudinary.config({
 });
 
 const uploadToCloudinary = async (
-  file: IFile
-): Promise<ICloudinaryResponse> => {
+  file: any
+): Promise<any> => {
   return new Promise((resolve, rejects) => {
     cloudinary.uploader.upload(
       file.path,
-      (error: Error, result: ICloudinaryResponse) => {
+      (error: Error, result: any) => {
         //uploads photo delete
         fs.unlinkSync(file.path);
         if (error) {
