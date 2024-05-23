@@ -221,25 +221,55 @@ const updateProfile = async (user: IAuthUser, req: Request) => {
 
   let profileInfo;
   if (userInfo.role === userRole.SUPPER_ADMIN) {
-    profileInfo = await prisma.admin.update({
-      where: {
-        email: userInfo.email,
-      },
-      data: req.body,
+    profileInfo = await prisma.$transaction(async (tx) => {
+      await tx.user.update({
+        where: {
+          email: userInfo.email,
+        },
+        data: req.body,
+      });
+      const updatedProfile = await tx.admin.update({
+        where: {
+          email: userInfo.email,
+        },
+        data: req.body,
+      });
+
+      return updatedProfile;
     });
   } else if (userInfo.role === userRole.ADMIN) {
-    profileInfo = await prisma.admin.update({
-      where: {
-        email: userInfo.email,
-      },
-      data: req.body,
+    profileInfo = await prisma.$transaction(async (tx) => {
+      await tx.user.update({
+        where: {
+          email: userInfo.email,
+        },
+        data: req.body,
+      });
+      const updatedProfile = await tx.admin.update({
+        where: {
+          email: userInfo.email,
+        },
+        data: req.body,
+      });
+
+      return updatedProfile;
     });
   } else if (userInfo.role === userRole.USER) {
-    profileInfo = await prisma.user.update({
-      where: {
-        email: userInfo.email,
-      },
-      data: req.body,
+    profileInfo = await prisma.$transaction(async (tx) => {
+      await tx.user.update({
+        where: {
+          email: userInfo.email,
+        },
+        data: req.body,
+      });
+      const updatedProfile = await tx.admin.update({
+        where: {
+          email: userInfo.email,
+        },
+        data: req.body,
+      });
+
+      return updatedProfile;
     });
   }
 
