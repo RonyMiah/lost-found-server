@@ -14,7 +14,6 @@ router.post(
     req.body = PropertyValidation.lostItemValidationSchema.parse(
       JSON.parse(req.body.data)
     );
-    // console.log(req.body);
     next();
   },
   PropertyControllers.createLostProperty
