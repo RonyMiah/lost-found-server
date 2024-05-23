@@ -12,7 +12,17 @@ const createLostProperty = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const createFoundProperty = catchAsync(async (req, res) => {
+  const result = await PropertyServices.createFoundProperty(req);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Found property Submited Successfully !',
+    data: result,
+  });
+});
 
 export const PropertyControllers = {
   createLostProperty,
+  createFoundProperty,
 };

@@ -43,6 +43,7 @@ model LostItem {
   status        lostItemStatus
   category      lostItemCategory
   contactNumber String
+  email         String
   color         String
   brand         String
   location      String
@@ -50,6 +51,23 @@ model LostItem {
   uploadImage   String           @default("")
 
   @@map("lostitems")
+}
+
+model FoundItem {
+  id            String           @id @default(uuid())
+  title         String
+  date          String
+  status        lostItemStatus
+  category      lostItemCategory
+  contactNumber String
+  color         String
+  email         String
+  brand         String
+  location      String
+  description   String
+  uploadImage   String           @default("")
+
+  @@map("founditems")
 }
 
 enum userRole {

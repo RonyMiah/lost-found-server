@@ -17,6 +17,21 @@ const lostItemValidationSchema = z.object({
   status: lostItemStatus,
   category: lostItemCategory,
   contactNumber: z.string(),
+  email: z.string().email(),
+  color: z.string(),
+  brand: z.string(),
+  location: z.string(),
+  description: z.string(),
+  uploadImage: z.string().url().optional().default(''),
+});
+
+const foundItemValidationSchema = z.object({
+  title: z.string(),
+  date: z.string(),
+  status: lostItemStatus,
+  category: lostItemCategory,
+  contactNumber: z.string(),
+  email: z.string().email(),
   color: z.string(),
   brand: z.string(),
   location: z.string(),
@@ -26,4 +41,5 @@ const lostItemValidationSchema = z.object({
 
 export const PropertyValidation = {
   lostItemValidationSchema,
+  foundItemValidationSchema,
 };
