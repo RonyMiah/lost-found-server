@@ -70,6 +70,17 @@ model FoundItem {
   @@map("founditems")
 }
 
+model Claim {
+  id          String @id @default(uuid())
+  description String
+  location    String
+  details     String
+  uploadImage String @default("")
+  lostDate    String
+
+  @@map("claims")
+}
+
 enum userRole {
   SUPPER_ADMIN
   ADMIN

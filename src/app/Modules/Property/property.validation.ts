@@ -39,7 +39,16 @@ const foundItemValidationSchema = z.object({
   uploadImage: z.string().url().optional().default(''),
 });
 
+const claimValidationSchema = z.object({
+  description: z.string(),
+  location: z.string(),
+  details: z.string(),
+  uploadImage: z.string().url().optional().default(''),
+  lostDate: z.string(),
+});
+
 export const PropertyValidation = {
   lostItemValidationSchema,
   foundItemValidationSchema,
+  claimValidationSchema
 };

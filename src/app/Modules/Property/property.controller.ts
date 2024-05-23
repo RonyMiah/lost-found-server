@@ -21,8 +21,18 @@ const createFoundProperty = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const claimProperty = catchAsync(async (req, res) => {
+  const result = await PropertyServices.claimProperty(req);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Claim Process Successfully !',
+    data: result,
+  });
+});
 
 export const PropertyControllers = {
   createLostProperty,
   createFoundProperty,
+  claimProperty,
 };

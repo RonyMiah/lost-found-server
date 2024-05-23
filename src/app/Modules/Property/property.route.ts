@@ -19,9 +19,8 @@ router.post(
   PropertyControllers.createLostProperty
 );
 
-
 router.post(
-  "/create-foundproperty",
+  '/create-foundproperty',
   fileUploader.upload.single('file'),
   (req: Request, res: Response, next: NextFunction) => {
     req.body = PropertyValidation.foundItemValidationSchema.parse(
@@ -30,6 +29,18 @@ router.post(
     next();
   },
   PropertyControllers.createFoundProperty
-)
+);
+
+router.post(
+  '/claim',
+  fileUploader.upload.single('file'),
+  (req: Request, res: Response, next: NextFunction) => {
+    req.body = PropertyValidation.claimValidationSchema.parse(
+      JSON.parse(req.body.data)
+    );
+    next();
+  },
+  PropertyControllers.claimProperty
+);
 
 export const propertyRouter = router;
