@@ -10,4 +10,9 @@ export default {
   jwt_expire_in: process.env.JWT_EXPIRE,
   jwt_refresh_secret: process.env.JWT_REFRESH_SEECRET,
   jwt_refresh_expire_in: process.env.JWT_REFRESH_EXPIRE,
+  reset_pass_secret: process.env.RESET_PASS_SECRET,
+  reset_pass_expire_in: process.env.RESET_PASS_EXPIRE,
+  reset_pass_link: process.env.RESET_PASS_LINK,
+  node_mailer_email: process.env.NODE_MAILER_EMAIL,
+  node_mailer_pass: process.env.NODE_MAILER_PASS,
 };

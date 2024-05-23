@@ -51,9 +51,17 @@ const createAdmin = async (payload: CreateAdminPayload) => {
     role,
   };
 
-  const result = await prisma.admin.create({
-    data: userData,
+  const result = await prisma.$transaction(async (transatctionClient) => {
+    await transatctionClient.user.create({
+      data: userData,
+    });
+    const createdAdminData = await transatctionClient.admin.create({
+      data: userData,
+    });
+
+    return createdAdminData;
   });
+
   const { password, ...returnData } = result;
   return returnData;
 };
