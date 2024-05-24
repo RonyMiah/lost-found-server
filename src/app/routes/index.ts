@@ -3,6 +3,7 @@ import express from 'express';
 import { userRouter } from '../Modules/User/user.route';
 import { AuthRoutes } from '../Modules/Auth/auth.route';
 import { propertyRouter } from '../Modules/Property/property.route';
+import { MetaRoutes } from '../Modules/Meta/meta.routes';
 
 const router = express.Router();
 
@@ -18,6 +19,10 @@ const moduleRoutes = [
   {
     path: '/property',
     route: propertyRouter,
+  },
+  {
+    path: '/meta',
+    route: MetaRoutes,
   },
 ];
 
