@@ -7,9 +7,8 @@ generator client {
 }
 
 datasource db {
-  provider     = "postgresql"
-  url          = env("DATABASE_URL")
-  
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -56,6 +55,8 @@ model LostItem {
   location      String
   description   String
   uploadImage   String           @default("")
+  createdAt     DateTime         @default(now())
+  upodatedAt    DateTime         @updatedAt
   userId        String
   user          User             @relation(fields: [userId], references: [id])
 
@@ -75,6 +76,8 @@ model FoundItem {
   location      String
   description   String
   uploadImage   String           @default("")
+  createdAt     DateTime         @default(now())
+  upodatedAt    DateTime         @updatedAt
   userId        String
   user          User             @relation(fields: [userId], references: [id])
 
@@ -89,6 +92,8 @@ model Claim {
   status      claimStatus @default(pending)
   uploadImage String      @default("")
   lostDate    String
+  createdAt   DateTime    @default(now())
+  upodatedAt  DateTime    @updatedAt
   userId      String
   user        User        @relation(fields: [userId], references: [id])
 

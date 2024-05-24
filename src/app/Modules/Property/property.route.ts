@@ -65,4 +65,7 @@ router.get(
   PropertyControllers.myFoundItem
 );
 
+router.get('/getall-lost-items', PropertyControllers.getAllLostItems);
+router.get('/getall-found-items', PropertyControllers.getAllFoundItems);
+
 export const propertyRouter = router;

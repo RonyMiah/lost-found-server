@@ -4,6 +4,9 @@ import sendResponse from '../../../shared/sendResponse';
 import { PropertyServices } from './property.service';
 import { Request, Response } from 'express';
 import { IAuthUser } from '../../interfaces/common';
+import pick from '../../../shared/pick';
+import { foundItemsFilterableFields, lostItemsFilterableFields } from './property.constant';
+
 
 const createLostProperty = catchAsync(
   async (req: Request & { user?: IAuthUser }, res: Response) => {
@@ -86,6 +89,31 @@ const myFoundItem = catchAsync(
     });
   }
 );
+const getAllLostItems = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, lostItemsFilterableFields);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+
+  const result = await PropertyServices.getAllLostItems(filters, options);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All Lost items Fetched Successfully !',
+    data: result,
+  });
+});
+
+const getAllFoundItems = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, foundItemsFilterableFields);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+
+  const result = await PropertyServices.getAllFoundItems(filters, options);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'All Found items Fetched Successfully !',
+    data: result,
+  });
+});
 
 export const PropertyControllers = {
   createLostProperty,
@@ -94,4 +122,6 @@ export const PropertyControllers = {
   myClaimItem,
   myLostItem,
   myFoundItem,
+  getAllLostItems,
+  getAllFoundItems,
 };
