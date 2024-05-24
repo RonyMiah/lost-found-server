@@ -2,23 +2,29 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  
 }
 
 model User {
-  id         String     @id @default(uuid())
-  userName   String     @unique
-  email      String     @unique
+  id         String      @id @default(uuid())
+  userName   String      @unique
+  email      String      @unique
   password   String
   role       userRole
-  status     userStatus @default(ACTIVE)
-  createdAt  DateTime   @default(now())
-  upodatedAt DateTime   @updatedAt
+  status     userStatus  @default(ACTIVE)
+  createdAt  DateTime    @default(now())
+  upodatedAt DateTime    @updatedAt
+  Admin      Admin?
+  LostItem   LostItem[]
+  FoundItem  FoundItem[]
+  Claim      Claim[]
 
   @@map("users")
 }
@@ -32,6 +38,7 @@ model Admin {
   status     userStatus @default(ACTIVE)
   createdAt  DateTime   @default(now())
   upodatedAt DateTime   @updatedAt
+  user       User       @relation(fields: [email], references: [email])
 
   @@map("admins")
 }
@@ -49,6 +56,8 @@ model LostItem {
   location      String
   description   String
   uploadImage   String           @default("")
+  userId        String
+  user          User             @relation(fields: [userId], references: [id])
 
   @@map("lostitems")
 }
@@ -66,17 +75,22 @@ model FoundItem {
   location      String
   description   String
   uploadImage   String           @default("")
+  userId        String
+  user          User             @relation(fields: [userId], references: [id])
 
   @@map("founditems")
 }
 
 model Claim {
-  id          String @id @default(uuid())
+  id          String      @id @default(uuid())
   description String
   location    String
   details     String
-  uploadImage String @default("")
+  status      claimStatus @default(pending)
+  uploadImage String      @default("")
   lostDate    String
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
 
   @@map("claims")
 }
@@ -106,4 +120,10 @@ enum lostItemCategory {
   Bike
   Car
   Others
+}
+
+enum claimStatus {
+  pending
+  approved
+  rejected
 }
