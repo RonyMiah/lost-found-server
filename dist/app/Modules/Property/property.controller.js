@@ -22,6 +22,7 @@ const property_constant_1 = require("./property.constant");
 const createLostProperty = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.user;
     // console.log('User Data', user);
+    console.log(req.file);
     const result = yield property_service_1.PropertyServices.createLostProperty(req, user);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,

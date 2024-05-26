@@ -6,7 +6,7 @@ import { TPaginationOptions } from '../../interfaces/pagination';
 import { paginationHelper } from '../../../helpars/paginateHelpars';
 import { Prisma } from '@prisma/client';
 
-const createLostProperty = async (req: Request, user: IAuthUser) => {
+const createLostProperty = async (payload: any, user: IAuthUser) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
       email: user?.email,
@@ -15,12 +15,12 @@ const createLostProperty = async (req: Request, user: IAuthUser) => {
 
   const userId = userData.id;
 
-  const file: any = req.file;
-  if (file) {
-    const cloudinaryUploadData = await fileUploader.uploadToCloudinary(file);
-    req.body.uploadImage = cloudinaryUploadData?.secure_url;
-  }
-  const payloadData = { ...req.body, userId };
+  // const file: any = req.file;
+  // if (file) {
+  //   const cloudinaryUploadData = await fileUploader.uploadToCloudinary(file);
+  //   req.body.uploadImage = cloudinaryUploadData?.secure_url;
+  // }
+  const payloadData = { ...payload, userId };
   const result = await prisma.lostItem.create({
     data: payloadData,
   });
@@ -28,7 +28,7 @@ const createLostProperty = async (req: Request, user: IAuthUser) => {
   return result;
 };
 
-const createFoundProperty = async (req: Request, user: IAuthUser) => {
+const createFoundProperty = async (payload: any, user: IAuthUser) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
       email: user?.email,
@@ -37,12 +37,12 @@ const createFoundProperty = async (req: Request, user: IAuthUser) => {
 
   const userId = userData.id;
 
-  const file: any = req.file;
-  if (file) {
-    const cloudinaryUploadData = await fileUploader.uploadToCloudinary(file);
-    req.body.uploadImage = cloudinaryUploadData?.secure_url;
-  }
-  const payloadData = { ...req.body, userId };
+  // const file: any = req.file;
+  // if (file) {
+  //   const cloudinaryUploadData = await fileUploader.uploadToCloudinary(file);
+  //   req.body.uploadImage = cloudinaryUploadData?.secure_url;
+  // }
+  const payloadData = { ...payload, userId };
   const result = await prisma.foundItem.create({
     data: payloadData,
   });

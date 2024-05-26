@@ -14,20 +14,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fileUploader = void 0;
 const multer_1 = __importDefault(require("multer"));
-const path_1 = __importDefault(require("path"));
 const cloudinary_1 = require("cloudinary");
 const fs_1 = __importDefault(require("fs"));
 const config_1 = __importDefault(require("../app/config"));
-const storage = multer_1.default.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, path_1.default.join(process.cwd(), 'uploads'));
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() - Math.round(Math.random() * 1e9);
-        const endPath = file.mimetype.replace('image/', '');
-        cb(null, `${uniqueSuffix}.${endPath}`);
-    },
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     console.log('destination', file);
+//     cb(null, path.join(process.cwd(), 'uploads'));
+//   },
+//   filename: function (req, file, cb) {
+//     console.log('filename', file);
+//     const uniqueSuffix = Date.now() - Math.round(Math.random() * 1e9);
+//     const endPath = file.mimetype.replace('image/', '');
+//     cb(null, `${uniqueSuffix}.${endPath}`);
+//   },
+// });
+const storage = multer_1.default.memoryStorage();
 const upload = (0, multer_1.default)({ storage: storage });
 //Cloudinary setup
 cloudinary_1.v2.config({

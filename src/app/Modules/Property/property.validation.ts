@@ -50,5 +50,5 @@ const claimValidationSchema = z.object({
 export const PropertyValidation = {
   lostItemValidationSchema,
   foundItemValidationSchema,
-  claimValidationSchema
+  claimValidationSchema,
 };

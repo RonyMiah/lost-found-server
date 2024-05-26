@@ -5,16 +5,19 @@ import { PropertyServices } from './property.service';
 import { Request, Response } from 'express';
 import { IAuthUser } from '../../interfaces/common';
 import pick from '../../../shared/pick';
-import { foundItemsFilterableFields, lostItemsFilterableFields } from './property.constant';
-
+import {
+  foundItemsFilterableFields,
+  lostItemsFilterableFields,
+} from './property.constant';
 
 const createLostProperty = catchAsync(
   async (req: Request & { user?: IAuthUser }, res: Response) => {
     const user = req.user;
     // console.log('User Data', user);
+    // console.log(req.file);
 
     const result = await PropertyServices.createLostProperty(
-      req,
+      req.body,
       user as IAuthUser
     );
     sendResponse(res, {
@@ -29,7 +32,7 @@ const createFoundProperty = catchAsync(
   async (req: Request & { user?: IAuthUser }, res: Response) => {
     const user = req.user;
     const result = await PropertyServices.createFoundProperty(
-      req,
+      req.body,
       user as IAuthUser
     );
     sendResponse(res, {

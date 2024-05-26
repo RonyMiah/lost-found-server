@@ -23,7 +23,7 @@ const lostItemValidationSchema = zod_1.z.object({
     brand: zod_1.z.string(),
     location: zod_1.z.string(),
     description: zod_1.z.string(),
-    uploadImage: zod_1.z.string().url().optional().default(''),
+    // uploadImage: z.string().url().optional().default(''),
 });
 const foundItemValidationSchema = zod_1.z.object({
     title: zod_1.z.string(),

@@ -254,6 +254,14 @@ const updateProfile = (user, req) => __awaiter(void 0, void 0, void 0, function*
     }
     return Object.assign({}, profileInfo);
 });
+const userSoftDelete = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.user.delete({
+        where: {
+            id: userId,
+        },
+    });
+    return result;
+});
 exports.UserServices = {
     createUser,
     createAdmin,
@@ -261,4 +269,5 @@ exports.UserServices = {
     changeProfileStatus,
     getMe,
     updateProfile,
+    userSoftDelete,
 };
