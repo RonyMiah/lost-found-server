@@ -95,7 +95,7 @@ const getAllDataFromDB = (params, options) => __awaiter(void 0, void 0, void 0, 
         });
     }
     //   console.dir(andConditon, { depth: 'infinity' });
-    const whereConditions = andConditon.length > 0
+    const whereConditions = (andConditon === null || andConditon === void 0 ? void 0 : andConditon.length) > 0
         ? {
             AND: andConditon,
         }

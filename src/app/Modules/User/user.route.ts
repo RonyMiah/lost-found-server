@@ -8,8 +8,7 @@ import { fileUploader } from '../../../shared/fileUploader';
 
 const router = express.Router();
 
-
-// get all users 
+// get all users
 router.get(
   '/',
   auth(userRole.ADMIN, userRole.SUPPER_ADMIN),
@@ -18,14 +17,9 @@ router.get(
 
 router.get(
   '/me',
-  auth(
-    userRole.ADMIN,
-    userRole.USER,
-    userRole.SUPPER_ADMIN
-  ),
+  auth(userRole.ADMIN, userRole.USER, userRole.SUPPER_ADMIN),
   UserControllers.getMe
 );
-
 
 router.post(
   '/create-user',
@@ -38,18 +32,9 @@ router.post(
   UserControllers.createAdmin
 );
 
-
-
-
-
-
 router.patch(
   '/update-my-profile',
-  auth(
-    userRole.ADMIN,
-    userRole.SUPPER_ADMIN,
-    userRole.USER,
-  ),
+  auth(userRole.ADMIN, userRole.SUPPER_ADMIN, userRole.USER),
   fileUploader.upload.single('file'),
   (req: Request, res: Response, next: NextFunction) => {
     req.body = JSON.parse(req.body.data);
@@ -58,6 +43,11 @@ router.patch(
   UserControllers.updateProfile
 );
 
+router.delete(
+  '/delete/:id',
+  auth(userRole.ADMIN, userRole.SUPPER_ADMIN),
+  UserControllers.userSoftDelete
+);
 
 router.patch(
   '/:id/status',
@@ -68,9 +58,5 @@ router.patch(
   },
   UserControllers.changeProfileStatus
 );
-
-
-
-
 
 export const userRouter = router;

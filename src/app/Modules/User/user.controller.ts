@@ -78,6 +78,19 @@ const updateProfile = catchAsync(
   }
 );
 
+const userSoftDelete = catchAsync(
+  async (req: Request & { user?: IAuthUser }, res: Response) => {
+    const { id } = req.params;
+    const result = await UserServices.userSoftDelete(id);
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'User Deleted Successfully ',
+      data: result,
+    });
+  }
+);
+
 export const UserControllers = {
   createUser,
   createAdmin,
@@ -85,4 +98,5 @@ export const UserControllers = {
   changeProfileStatus,
   getMe,
   updateProfile,
+  userSoftDelete,
 };

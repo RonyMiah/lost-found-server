@@ -102,7 +102,7 @@ const getAllDataFromDB = async (params: any, options: TPaginationOptions) => {
   //   console.dir(andConditon, { depth: 'infinity' });
 
   const whereConditions: Prisma.UserWhereInput =
-    andConditon.length > 0
+    andConditon?.length > 0
       ? {
           AND: andConditon,
         }
@@ -276,6 +276,15 @@ const updateProfile = async (user: IAuthUser, req: Request) => {
   return { ...profileInfo };
 };
 
+const userSoftDelete = async (userId: string) => {
+  const result = await prisma.user.delete({
+    where: {
+      id: userId,
+    },
+  });
+  return result;
+};
+
 export const UserServices = {
   createUser,
   createAdmin,
@@ -283,4 +292,5 @@ export const UserServices = {
   changeProfileStatus,
   getMe,
   updateProfile,
+  userSoftDelete,
 };
