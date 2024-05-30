@@ -77,6 +77,7 @@ router.patch(
   validateRequest(PropertyValidation.updateLostItemValidationSchema),
   PropertyControllers.updateLostItems
 );
+router.delete('/update-lost-items/:id', PropertyControllers.deleteLostItems);
 
 router.get('/getsingle-lost-items/:id', PropertyControllers.getSingleLostItems);
 

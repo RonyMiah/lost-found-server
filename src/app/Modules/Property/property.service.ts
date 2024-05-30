@@ -248,6 +248,14 @@ const getSingleLostItems = async (id: string) => {
   });
   return result;
 };
+const deleteLostItems = async (id: string) => {
+  const result = await prisma.lostItem.delete({
+    where: {
+      id,
+    },
+  });
+  return result;
+};
 
 const updateLostItems = async (id: string, payload: any) => {
   await prisma.lostItem.findUniqueOrThrow({
@@ -277,4 +285,5 @@ export const PropertyServices = {
   getAllFoundItems,
   getSingleLostItems,
   updateLostItems,
+  deleteLostItems,
 };

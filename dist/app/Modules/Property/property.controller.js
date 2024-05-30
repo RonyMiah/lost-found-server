@@ -103,6 +103,27 @@ const getAllFoundItems = (0, catchAsync_1.default)((req, res) => __awaiter(void 
         data: result,
     });
 }));
+const getSingleLostItems = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield property_service_1.PropertyServices.getSingleLostItems(id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Data Fetched Successfully !',
+        data: result,
+    });
+}));
+const updateLostItems = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const data = req.body;
+    const result = yield property_service_1.PropertyServices.updateLostItems(id, data);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Updated Successfully !',
+        data: result,
+    });
+}));
 exports.PropertyControllers = {
     createLostProperty,
     createFoundProperty,
@@ -112,4 +133,6 @@ exports.PropertyControllers = {
     myFoundItem,
     getAllLostItems,
     getAllFoundItems,
+    updateLostItems,
+    getSingleLostItems,
 };

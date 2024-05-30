@@ -132,6 +132,17 @@ const getSingleLostItems = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const deleteLostItems = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await PropertyServices.deleteLostItems(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Deleted Successfully !',
+    data: result,
+  });
+});
 
 const updateLostItems = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -157,4 +168,5 @@ export const PropertyControllers = {
   getAllFoundItems,
   updateLostItems,
   getSingleLostItems,
+  deleteLostItems,
 };
