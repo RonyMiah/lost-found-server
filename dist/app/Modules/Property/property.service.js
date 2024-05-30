@@ -24,58 +24,57 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PropertyServices = void 0;
-const fileUploader_1 = require("../../../shared/fileUploader");
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const paginateHelpars_1 = require("../../../helpars/paginateHelpars");
-const createLostProperty = (req, user) => __awaiter(void 0, void 0, void 0, function* () {
+const createLostProperty = (payload, user) => __awaiter(void 0, void 0, void 0, function* () {
     const userData = yield prisma_1.default.user.findUniqueOrThrow({
         where: {
             email: user === null || user === void 0 ? void 0 : user.email,
         },
     });
     const userId = userData.id;
-    const file = req.file;
-    if (file) {
-        const cloudinaryUploadData = yield fileUploader_1.fileUploader.uploadToCloudinary(file);
-        req.body.uploadImage = cloudinaryUploadData === null || cloudinaryUploadData === void 0 ? void 0 : cloudinaryUploadData.secure_url;
-    }
-    const payloadData = Object.assign(Object.assign({}, req.body), { userId });
+    // const file: any = req.file;
+    // if (file) {
+    //   const cloudinaryUploadData = await fileUploader.uploadToCloudinary(file);
+    //   req.body.uploadImage = cloudinaryUploadData?.secure_url;
+    // }
+    const payloadData = Object.assign(Object.assign({}, payload), { userId });
     const result = yield prisma_1.default.lostItem.create({
         data: payloadData,
     });
     return result;
 });
-const createFoundProperty = (req, user) => __awaiter(void 0, void 0, void 0, function* () {
+const createFoundProperty = (payload, user) => __awaiter(void 0, void 0, void 0, function* () {
     const userData = yield prisma_1.default.user.findUniqueOrThrow({
         where: {
             email: user === null || user === void 0 ? void 0 : user.email,
         },
     });
     const userId = userData.id;
-    const file = req.file;
-    if (file) {
-        const cloudinaryUploadData = yield fileUploader_1.fileUploader.uploadToCloudinary(file);
-        req.body.uploadImage = cloudinaryUploadData === null || cloudinaryUploadData === void 0 ? void 0 : cloudinaryUploadData.secure_url;
-    }
-    const payloadData = Object.assign(Object.assign({}, req.body), { userId });
+    // const file: any = req.file;
+    // if (file) {
+    //   const cloudinaryUploadData = await fileUploader.uploadToCloudinary(file);
+    //   req.body.uploadImage = cloudinaryUploadData?.secure_url;
+    // }
+    const payloadData = Object.assign(Object.assign({}, payload), { userId });
     const result = yield prisma_1.default.foundItem.create({
         data: payloadData,
     });
     return result;
 });
-const claimProperty = (req, user) => __awaiter(void 0, void 0, void 0, function* () {
+const claimProperty = (params, user) => __awaiter(void 0, void 0, void 0, function* () {
     const userData = yield prisma_1.default.user.findUniqueOrThrow({
         where: {
             email: user === null || user === void 0 ? void 0 : user.email,
         },
     });
     const userId = userData.id;
-    const file = req.file;
-    if (file) {
-        const cloudinaryUploadData = yield fileUploader_1.fileUploader.uploadToCloudinary(file);
-        req.body.uploadImage = cloudinaryUploadData === null || cloudinaryUploadData === void 0 ? void 0 : cloudinaryUploadData.secure_url;
-    }
-    const payloadData = Object.assign(Object.assign({}, req.body), { userId });
+    // const file: any = req.file;
+    // if (file) {
+    //   const cloudinaryUploadData = await fileUploader.uploadToCloudinary(file);
+    //   req.body.uploadImage = cloudinaryUploadData?.secure_url;
+    // }
+    const payloadData = Object.assign(Object.assign({}, params), { userId });
     const result = yield prisma_1.default.claim.create({
         data: payloadData,
     });

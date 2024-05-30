@@ -40,13 +40,14 @@ router.post(
 router.post(
   '/claim',
   auth(userRole.USER, userRole.ADMIN),
-  fileUploader.upload.single('file'),
-  (req: Request, res: Response, next: NextFunction) => {
-    req.body = PropertyValidation.claimValidationSchema.parse(
-      JSON.parse(req.body.data)
-    );
-    next();
-  },
+  // fileUploader.upload.single('file'),
+  // (req: Request, res: Response, next: NextFunction) => {
+  //   req.body = PropertyValidation.claimValidationSchema.parse(
+  //     JSON.parse(req.body.data)
+  //   );
+  //   next();
+  // },
+  validateRequest(PropertyValidation.claimValidationSchema),
   PropertyControllers.claimProperty
 );
 
@@ -70,5 +71,13 @@ router.get(
 
 router.get('/getall-lost-items', PropertyControllers.getAllLostItems);
 router.get('/getall-found-items', PropertyControllers.getAllFoundItems);
+
+router.patch(
+  '/update-lost-items/:id',
+  validateRequest(PropertyValidation.updateLostItemValidationSchema),
+  PropertyControllers.updateLostItems
+);
+
+router.get('/getsingle-lost-items/:id', PropertyControllers.getSingleLostItems);
 
 export const propertyRouter = router;

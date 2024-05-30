@@ -23,7 +23,7 @@ const lostItemValidationSchema = zod_1.z.object({
     brand: zod_1.z.string(),
     location: zod_1.z.string(),
     description: zod_1.z.string(),
-    // uploadImage: z.string().url().optional().default(''),
+    uploadImage: zod_1.z.string(),
 });
 const foundItemValidationSchema = zod_1.z.object({
     title: zod_1.z.string(),
@@ -36,17 +36,15 @@ const foundItemValidationSchema = zod_1.z.object({
     brand: zod_1.z.string(),
     location: zod_1.z.string(),
     description: zod_1.z.string(),
-    uploadImage: zod_1.z.string().url().optional().default(''),
+    uploadImage: zod_1.z.string(),
 });
 const claimValidationSchema = zod_1.z.object({
     description: zod_1.z.string(),
-    location: zod_1.z.string(),
-    details: zod_1.z.string(),
-    uploadImage: zod_1.z.string().url().optional().default(''),
-    lostDate: zod_1.z.string(),
+    finderContactNumber: zod_1.z.string(),
+    uploadImage: zod_1.z.string(),
 });
 exports.PropertyValidation = {
     lostItemValidationSchema,
     foundItemValidationSchema,
-    claimValidationSchema
+    claimValidationSchema,
 };

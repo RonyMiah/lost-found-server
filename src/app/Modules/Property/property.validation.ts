@@ -10,6 +10,10 @@ const lostItemCategory = z.enum([
   'Car',
   'Others',
 ]);
+const updateLostItemStatus = z.enum(['LOST', 'FOUND']).optional();
+const updateLostItemCategory = z
+  .enum(['Walet', 'Key', 'Mobail', 'Laptop', 'Bike', 'Car', 'Others'])
+  .optional();
 
 const lostItemValidationSchema = z.object({
   title: z.string(),
@@ -22,7 +26,21 @@ const lostItemValidationSchema = z.object({
   brand: z.string(),
   location: z.string(),
   description: z.string(),
-  uploadImage: z.string().url().optional().default(''),
+  uploadImage: z.string(),
+});
+
+const updateLostItemValidationSchema = z.object({
+  title: z.string().optional(),
+  date: z.string().optional(),
+  status: updateLostItemStatus,
+  category: updateLostItemCategory,
+  contactNumber: z.string().optional(),
+  email: z.string().email().optional(),
+  color: z.string().optional(),
+  brand: z.string().optional(),
+  location: z.string().optional(),
+  description: z.string().optional(),
+  uploadImage: z.string().optional(),
 });
 
 const foundItemValidationSchema = z.object({
@@ -36,19 +54,18 @@ const foundItemValidationSchema = z.object({
   brand: z.string(),
   location: z.string(),
   description: z.string(),
-  uploadImage: z.string().url().optional().default(''),
+  uploadImage: z.string(),
 });
 
 const claimValidationSchema = z.object({
   description: z.string(),
-  location: z.string(),
-  details: z.string(),
-  uploadImage: z.string().url().optional().default(''),
-  lostDate: z.string(),
+  finderContactNumber: z.string(),
+  uploadImage: z.string(),
 });
 
 export const PropertyValidation = {
   lostItemValidationSchema,
   foundItemValidationSchema,
   claimValidationSchema,
+  updateLostItemValidationSchema,
 };

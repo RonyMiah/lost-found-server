@@ -47,7 +47,10 @@ const createFoundProperty = catchAsync(
 const claimProperty = catchAsync(
   async (req: Request & { user?: IAuthUser }, res: Response) => {
     const user = req.user;
-    const result = await PropertyServices.claimProperty(req, user as IAuthUser);
+    const result = await PropertyServices.claimProperty(
+      req.body,
+      user as IAuthUser
+    );
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -118,6 +121,31 @@ const getAllFoundItems = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getSingleLostItems = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await PropertyServices.getSingleLostItems(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Data Fetched Successfully !',
+    data: result,
+  });
+});
+
+const updateLostItems = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const data = req.body;
+
+  const result = await PropertyServices.updateLostItems(id, data);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Updated Successfully !',
+    data: result,
+  });
+});
+
 export const PropertyControllers = {
   createLostProperty,
   createFoundProperty,
@@ -127,4 +155,6 @@ export const PropertyControllers = {
   myFoundItem,
   getAllLostItems,
   getAllFoundItems,
+  updateLostItems,
+  getSingleLostItems,
 };

@@ -50,7 +50,7 @@ const createFoundProperty = async (payload: any, user: IAuthUser) => {
   return result;
 };
 
-const claimProperty = async (req: Request, user: IAuthUser) => {
+const claimProperty = async (params: any, user: IAuthUser) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
       email: user?.email,
@@ -59,12 +59,12 @@ const claimProperty = async (req: Request, user: IAuthUser) => {
 
   const userId = userData.id;
 
-  const file: any = req.file;
-  if (file) {
-    const cloudinaryUploadData = await fileUploader.uploadToCloudinary(file);
-    req.body.uploadImage = cloudinaryUploadData?.secure_url;
-  }
-  const payloadData = { ...req.body, userId };
+  // const file: any = req.file;
+  // if (file) {
+  //   const cloudinaryUploadData = await fileUploader.uploadToCloudinary(file);
+  //   req.body.uploadImage = cloudinaryUploadData?.secure_url;
+  // }
+  const payloadData = { ...params, userId };
   const result = await prisma.claim.create({
     data: payloadData,
   });
@@ -240,6 +240,32 @@ const getAllFoundItems = async (params: any, options: TPaginationOptions) => {
   };
 };
 
+const getSingleLostItems = async (id: string) => {
+  const result = await prisma.lostItem.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+  return result;
+};
+
+const updateLostItems = async (id: string, payload: any) => {
+  await prisma.lostItem.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+
+  const result = await prisma.lostItem.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+
+  return result;
+};
+
 export const PropertyServices = {
   createLostProperty,
   createFoundProperty,
@@ -249,4 +275,6 @@ export const PropertyServices = {
   myFoundItem,
   getAllLostItems,
   getAllFoundItems,
+  getSingleLostItems,
+  updateLostItems,
 };

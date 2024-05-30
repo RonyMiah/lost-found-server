@@ -85,17 +85,15 @@ model FoundItem {
 }
 
 model Claim {
-  id          String      @id @default(uuid())
-  description String
-  location    String
-  details     String
-  status      claimStatus @default(pending)
-  uploadImage String      @default("")
-  lostDate    String
-  createdAt   DateTime    @default(now())
-  upodatedAt  DateTime    @updatedAt
-  userId      String
-  user        User        @relation(fields: [userId], references: [id])
+  id                  String      @id @default(uuid())
+  description         String
+  finderContactNumber String
+  status              claimStatus @default(pending)
+  uploadImage         String      @default("")
+  createdAt           DateTime    @default(now())
+  upodatedAt          DateTime    @updatedAt
+  userId              String
+  user                User        @relation(fields: [userId], references: [id])
 
   @@map("claims")
 }

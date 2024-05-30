@@ -7,22 +7,37 @@ exports.propertyRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const property_controller_1 = require("./property.controller");
 const property_validation_1 = require("./property.validation");
-const fileUploader_1 = require("../../../shared/fileUploader");
 const auth_1 = __importDefault(require("../../middlewares/auth"));
 const client_1 = require("@prisma/client");
+const validationRequest_1 = __importDefault(require("../../middlewares/validationRequest"));
 const router = express_1.default.Router();
-router.post('/create-lostproperty', (0, auth_1.default)(client_1.userRole.USER, client_1.userRole.ADMIN), fileUploader_1.fileUploader.upload.single('file'), (req, res, next) => {
-    req.body = property_validation_1.PropertyValidation.lostItemValidationSchema.parse(JSON.parse(req.body.data));
-    next();
-}, property_controller_1.PropertyControllers.createLostProperty);
-router.post('/create-foundproperty', (0, auth_1.default)(client_1.userRole.USER, client_1.userRole.ADMIN), fileUploader_1.fileUploader.upload.single('file'), (req, res, next) => {
-    req.body = property_validation_1.PropertyValidation.foundItemValidationSchema.parse(JSON.parse(req.body.data));
-    next();
-}, property_controller_1.PropertyControllers.createFoundProperty);
-router.post('/claim', (0, auth_1.default)(client_1.userRole.USER, client_1.userRole.ADMIN), fileUploader_1.fileUploader.upload.single('file'), (req, res, next) => {
-    req.body = property_validation_1.PropertyValidation.claimValidationSchema.parse(JSON.parse(req.body.data));
-    next();
-}, property_controller_1.PropertyControllers.claimProperty);
+router.post('/create-lostproperty', (0, auth_1.default)(client_1.userRole.USER, client_1.userRole.ADMIN), 
+// fileUploader.upload.single('file'),
+// (req: Request, res: Response, next: NextFunction) => {
+//   req.body = PropertyValidation.lostItemValidationSchema.parse(
+//     JSON.parse(req.body.data)
+//   );
+//   next();
+// },
+(0, validationRequest_1.default)(property_validation_1.PropertyValidation.lostItemValidationSchema), property_controller_1.PropertyControllers.createLostProperty);
+router.post('/create-foundproperty', (0, auth_1.default)(client_1.userRole.USER, client_1.userRole.ADMIN), 
+// fileUploader.upload.single('file'),
+// (req: Request, res: Response, next: NextFunction) => {
+//   req.body = PropertyValidation.foundItemValidationSchema.parse(
+//     JSON.parse(req.body.data)
+//   );
+//   next();
+// },
+(0, validationRequest_1.default)(property_validation_1.PropertyValidation.foundItemValidationSchema), property_controller_1.PropertyControllers.createFoundProperty);
+router.post('/claim', (0, auth_1.default)(client_1.userRole.USER, client_1.userRole.ADMIN), 
+// fileUploader.upload.single('file'),
+// (req: Request, res: Response, next: NextFunction) => {
+//   req.body = PropertyValidation.claimValidationSchema.parse(
+//     JSON.parse(req.body.data)
+//   );
+//   next();
+// },
+(0, validationRequest_1.default)(property_validation_1.PropertyValidation.claimValidationSchema), property_controller_1.PropertyControllers.claimProperty);
 router.get('/my-claim-items', (0, auth_1.default)(client_1.userRole.ADMIN, client_1.userRole.USER, client_1.userRole.SUPPER_ADMIN), property_controller_1.PropertyControllers.myClaimItem);
 router.get('/my-lost-items', (0, auth_1.default)(client_1.userRole.ADMIN, client_1.userRole.USER, client_1.userRole.SUPPER_ADMIN), property_controller_1.PropertyControllers.myLostItem);
 router.get('/my-found-items', (0, auth_1.default)(client_1.userRole.ADMIN, client_1.userRole.USER, client_1.userRole.SUPPER_ADMIN), property_controller_1.PropertyControllers.myFoundItem);

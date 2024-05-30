@@ -22,8 +22,8 @@ const property_constant_1 = require("./property.constant");
 const createLostProperty = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.user;
     // console.log('User Data', user);
-    console.log(req.file);
-    const result = yield property_service_1.PropertyServices.createLostProperty(req, user);
+    // console.log(req.file);
+    const result = yield property_service_1.PropertyServices.createLostProperty(req.body, user);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
@@ -33,7 +33,7 @@ const createLostProperty = (0, catchAsync_1.default)((req, res) => __awaiter(voi
 }));
 const createFoundProperty = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.user;
-    const result = yield property_service_1.PropertyServices.createFoundProperty(req, user);
+    const result = yield property_service_1.PropertyServices.createFoundProperty(req.body, user);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
@@ -43,7 +43,7 @@ const createFoundProperty = (0, catchAsync_1.default)((req, res) => __awaiter(vo
 }));
 const claimProperty = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.user;
-    const result = yield property_service_1.PropertyServices.claimProperty(req, user);
+    const result = yield property_service_1.PropertyServices.claimProperty(req.body, user);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
