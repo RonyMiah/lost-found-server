@@ -44,5 +44,6 @@ router.get('/my-found-items', (0, auth_1.default)(client_1.userRole.ADMIN, clien
 router.get('/getall-lost-items', property_controller_1.PropertyControllers.getAllLostItems);
 router.get('/getall-found-items', property_controller_1.PropertyControllers.getAllFoundItems);
 router.patch('/update-lost-items/:id', (0, validationRequest_1.default)(property_validation_1.PropertyValidation.updateLostItemValidationSchema), property_controller_1.PropertyControllers.updateLostItems);
+router.delete('/update-lost-items/:id', property_controller_1.PropertyControllers.deleteLostItems);
 router.get('/getsingle-lost-items/:id', property_controller_1.PropertyControllers.getSingleLostItems);
 exports.propertyRouter = router;

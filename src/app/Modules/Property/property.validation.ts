@@ -1,5 +1,8 @@
 import { z } from 'zod';
 
+const foundItemStatus = z.enum(['pending', 'approved', 'rejected']);
+const updateFoundItemStatus = z.enum(['approved', 'rejected']).optional();
+
 const lostItemStatus = z.enum(['LOST', 'FOUND']);
 const lostItemCategory = z.enum([
   'Walet',
@@ -43,10 +46,23 @@ const updateLostItemValidationSchema = z.object({
   uploadImage: z.string().optional(),
 });
 
+const updateFoundItemValidationSchema = z.object({
+  title: z.string().optional(),
+  date: z.string().optional(),
+  status: updateFoundItemStatus,
+  category: updateLostItemCategory,
+  contactNumber: z.string().optional(),
+  email: z.string().email().optional(),
+  color: z.string().optional(),
+  brand: z.string().optional(),
+  location: z.string().optional(),
+  description: z.string().optional(),
+  uploadImage: z.string().optional(),
+});
 const foundItemValidationSchema = z.object({
   title: z.string(),
   date: z.string(),
-  status: lostItemStatus,
+  status: foundItemStatus,
   category: lostItemCategory,
   contactNumber: z.string(),
   email: z.string().email(),
@@ -68,4 +84,5 @@ export const PropertyValidation = {
   foundItemValidationSchema,
   claimValidationSchema,
   updateLostItemValidationSchema,
+  updateFoundItemValidationSchema,
 };

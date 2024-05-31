@@ -132,10 +132,32 @@ const getSingleLostItems = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getSingleFoundItems = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await PropertyServices.getSingleFoundItems(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Data Fetched Successfully !',
+    data: result,
+  });
+});
 const deleteLostItems = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
 
   const result = await PropertyServices.deleteLostItems(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Deleted Successfully !',
+    data: result,
+  });
+});
+const deleteFoundItems = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await PropertyServices.deleteFoundItems(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -156,6 +178,18 @@ const updateLostItems = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const updateFoundItems = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const data = req.body;
+
+  const result = await PropertyServices.updateFoundItems(id, data);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Updated Successfully !',
+    data: result,
+  });
+});
 
 export const PropertyControllers = {
   createLostProperty,
@@ -169,4 +203,7 @@ export const PropertyControllers = {
   updateLostItems,
   getSingleLostItems,
   deleteLostItems,
+  updateFoundItems,
+  deleteFoundItems,
+  getSingleFoundItems
 };

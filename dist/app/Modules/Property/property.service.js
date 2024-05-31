@@ -229,6 +229,14 @@ const getSingleLostItems = (id) => __awaiter(void 0, void 0, void 0, function* (
     });
     return result;
 });
+const deleteLostItems = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.lostItem.delete({
+        where: {
+            id,
+        },
+    });
+    return result;
+});
 const updateLostItems = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
     yield prisma_1.default.lostItem.findUniqueOrThrow({
         where: {
@@ -254,4 +262,5 @@ exports.PropertyServices = {
     getAllFoundItems,
     getSingleLostItems,
     updateLostItems,
+    deleteLostItems,
 };

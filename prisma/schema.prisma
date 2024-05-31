@@ -67,7 +67,7 @@ model FoundItem {
   id            String           @id @default(uuid())
   title         String
   date          String
-  status        lostItemStatus
+  status        claimStatus
   category      lostItemCategory
   contactNumber String
   color         String

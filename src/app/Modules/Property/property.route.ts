@@ -72,6 +72,20 @@ router.get(
 router.get('/getall-lost-items', PropertyControllers.getAllLostItems);
 router.get('/getall-found-items', PropertyControllers.getAllFoundItems);
 
+//found items
+router.patch(
+  '/update-found-items/:id',
+  validateRequest(PropertyValidation.updateFoundItemValidationSchema),
+  PropertyControllers.updateFoundItems
+);
+router.delete('/update-found-items/:id', PropertyControllers.deleteFoundItems);
+
+router.get(
+  '/getsingle-found-items/:id',
+  PropertyControllers.getSingleFoundItems
+);
+
+//lost items
 router.patch(
   '/update-lost-items/:id',
   validateRequest(PropertyValidation.updateLostItemValidationSchema),
