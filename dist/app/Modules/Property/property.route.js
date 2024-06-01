@@ -43,6 +43,12 @@ router.get('/my-lost-items', (0, auth_1.default)(client_1.userRole.ADMIN, client
 router.get('/my-found-items', (0, auth_1.default)(client_1.userRole.ADMIN, client_1.userRole.USER, client_1.userRole.SUPPER_ADMIN), property_controller_1.PropertyControllers.myFoundItem);
 router.get('/getall-lost-items', property_controller_1.PropertyControllers.getAllLostItems);
 router.get('/getall-found-items', property_controller_1.PropertyControllers.getAllFoundItems);
+//found items
+router.patch('/update-found-items/:id', (0, validationRequest_1.default)(property_validation_1.PropertyValidation.updateFoundItemValidationSchema), property_controller_1.PropertyControllers.updateFoundItems);
+router.delete('/update-found-items/:id', property_controller_1.PropertyControllers.deleteFoundItems);
+router.get('/getsingle-found-items/:id', property_controller_1.PropertyControllers.getSingleFoundItems);
+router.get('/claim-items/:id', property_controller_1.PropertyControllers.getSingleClaimItems);
+//lost items
 router.patch('/update-lost-items/:id', (0, validationRequest_1.default)(property_validation_1.PropertyValidation.updateLostItemValidationSchema), property_controller_1.PropertyControllers.updateLostItems);
 router.delete('/update-lost-items/:id', property_controller_1.PropertyControllers.deleteLostItems);
 router.get('/getsingle-lost-items/:id', property_controller_1.PropertyControllers.getSingleLostItems);

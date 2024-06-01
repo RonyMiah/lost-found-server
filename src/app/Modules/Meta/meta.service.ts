@@ -10,10 +10,17 @@ const fetchDatabaseMetadata = async (user: IAuthUser) => {
 
     const totalClaimItems = await prisma.claim.count();
 
+    const totalReunions = await prisma.claim.count({
+      where: {
+        status: 'approved',
+      },
+    });
+
     return {
       totalLostItems,
       totalFoundItems,
       totalClaimItems,
+      totalReunions,
     };
   }
 };

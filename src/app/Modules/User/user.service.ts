@@ -206,18 +206,18 @@ const getMe = async (user: IAuthUser) => {
   return { ...userInfo, ...profileInfo };
 };
 
-const updateProfile = async (user: IAuthUser, req: Request) => {
+const updateProfile = async (user: IAuthUser, payload: any) => {
   const userInfo = await prisma.user.findUniqueOrThrow({
     where: {
       email: user?.email,
     },
   });
 
-  const file = req.file as IFile;
-  if (file) {
-    const uploadToCloudinaryData = await fileUploader.uploadToCloudinary(file);
-    req.body.profilePhoto = uploadToCloudinaryData?.secure_url;
-  }
+  // const file = req.file as IFile;
+  // if (file) {
+  //   const uploadToCloudinaryData = await fileUploader.uploadToCloudinary(file);
+  //   req.body.profilePhoto = uploadToCloudinaryData?.secure_url;
+  // }
 
   let profileInfo;
   if (userInfo.role === userRole.SUPPER_ADMIN) {
@@ -226,13 +226,13 @@ const updateProfile = async (user: IAuthUser, req: Request) => {
         where: {
           email: userInfo.email,
         },
-        data: req.body,
+        data: payload,
       });
       const updatedProfile = await tx.admin.update({
         where: {
           email: userInfo.email,
         },
-        data: req.body,
+        data: payload,
       });
 
       return updatedProfile;
@@ -243,13 +243,13 @@ const updateProfile = async (user: IAuthUser, req: Request) => {
         where: {
           email: userInfo.email,
         },
-        data: req.body,
+        data: payload,
       });
       const updatedProfile = await tx.admin.update({
         where: {
           email: userInfo.email,
         },
-        data: req.body,
+        data: payload,
       });
 
       return updatedProfile;
@@ -260,13 +260,13 @@ const updateProfile = async (user: IAuthUser, req: Request) => {
         where: {
           email: userInfo.email,
         },
-        data: req.body,
+        data: payload,
       });
       const updatedProfile = await tx.admin.update({
         where: {
           email: userInfo.email,
         },
-        data: req.body,
+        data: payload,
       });
 
       return updatedProfile;

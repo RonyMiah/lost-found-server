@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PropertyValidation = void 0;
 const zod_1 = require("zod");
+const foundItemStatus = zod_1.z.enum(['pending', 'approved', 'rejected']);
+const updateFoundItemStatus = zod_1.z.enum(['approved', 'rejected']).optional();
 const lostItemStatus = zod_1.z.enum(['LOST', 'FOUND']);
 const lostItemCategory = zod_1.z.enum([
     'Walet',
@@ -42,10 +44,23 @@ const updateLostItemValidationSchema = zod_1.z.object({
     description: zod_1.z.string().optional(),
     uploadImage: zod_1.z.string().optional(),
 });
+const updateFoundItemValidationSchema = zod_1.z.object({
+    title: zod_1.z.string().optional(),
+    date: zod_1.z.string().optional(),
+    status: updateFoundItemStatus,
+    category: updateLostItemCategory,
+    contactNumber: zod_1.z.string().optional(),
+    email: zod_1.z.string().email().optional(),
+    color: zod_1.z.string().optional(),
+    brand: zod_1.z.string().optional(),
+    location: zod_1.z.string().optional(),
+    description: zod_1.z.string().optional(),
+    uploadImage: zod_1.z.string().optional(),
+});
 const foundItemValidationSchema = zod_1.z.object({
     title: zod_1.z.string(),
     date: zod_1.z.string(),
-    status: lostItemStatus,
+    status: foundItemStatus,
     category: lostItemCategory,
     contactNumber: zod_1.z.string(),
     email: zod_1.z.string().email(),
@@ -65,4 +80,5 @@ exports.PropertyValidation = {
     foundItemValidationSchema,
     claimValidationSchema,
     updateLostItemValidationSchema,
+    updateFoundItemValidationSchema,
 };

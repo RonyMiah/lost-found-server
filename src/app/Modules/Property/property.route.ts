@@ -84,6 +84,7 @@ router.get(
   '/getsingle-found-items/:id',
   PropertyControllers.getSingleFoundItems
 );
+router.get('/claim-items/:id', PropertyControllers.getSingleClaimItems);
 
 //lost items
 router.patch(

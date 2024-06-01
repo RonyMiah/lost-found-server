@@ -31,7 +31,6 @@ const AppError_1 = __importDefault(require("../../errors/AppError"));
 const http_status_1 = __importDefault(require("http-status"));
 const paginateHelpars_1 = require("../../../helpars/paginateHelpars");
 const user_constant_1 = require("./user.constant");
-const fileUploader_1 = require("../../../shared/fileUploader");
 const createUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     if (!((payload === null || payload === void 0 ? void 0 : payload.password) === payload.confirmPassword)) {
         throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'Password Do not Match');
@@ -189,17 +188,17 @@ const getMe = (user) => __awaiter(void 0, void 0, void 0, function* () {
     }
     return Object.assign(Object.assign({}, userInfo), profileInfo);
 });
-const updateProfile = (user, req) => __awaiter(void 0, void 0, void 0, function* () {
+const updateProfile = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const userInfo = yield prisma_1.default.user.findUniqueOrThrow({
         where: {
             email: user === null || user === void 0 ? void 0 : user.email,
         },
     });
-    const file = req.file;
-    if (file) {
-        const uploadToCloudinaryData = yield fileUploader_1.fileUploader.uploadToCloudinary(file);
-        req.body.profilePhoto = uploadToCloudinaryData === null || uploadToCloudinaryData === void 0 ? void 0 : uploadToCloudinaryData.secure_url;
-    }
+    // const file = req.file as IFile;
+    // if (file) {
+    //   const uploadToCloudinaryData = await fileUploader.uploadToCloudinary(file);
+    //   req.body.profilePhoto = uploadToCloudinaryData?.secure_url;
+    // }
     let profileInfo;
     if (userInfo.role === client_1.userRole.SUPPER_ADMIN) {
         profileInfo = yield prisma_1.default.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
@@ -207,13 +206,13 @@ const updateProfile = (user, req) => __awaiter(void 0, void 0, void 0, function*
                 where: {
                     email: userInfo.email,
                 },
-                data: req.body,
+                data: payload,
             });
             const updatedProfile = yield tx.admin.update({
                 where: {
                     email: userInfo.email,
                 },
-                data: req.body,
+                data: payload,
             });
             return updatedProfile;
         }));
@@ -224,13 +223,13 @@ const updateProfile = (user, req) => __awaiter(void 0, void 0, void 0, function*
                 where: {
                     email: userInfo.email,
                 },
-                data: req.body,
+                data: payload,
             });
             const updatedProfile = yield tx.admin.update({
                 where: {
                     email: userInfo.email,
                 },
-                data: req.body,
+                data: payload,
             });
             return updatedProfile;
         }));
@@ -241,13 +240,13 @@ const updateProfile = (user, req) => __awaiter(void 0, void 0, void 0, function*
                 where: {
                     email: userInfo.email,
                 },
-                data: req.body,
+                data: payload,
             });
             const updatedProfile = yield tx.admin.update({
                 where: {
                     email: userInfo.email,
                 },
-                data: req.body,
+                data: payload,
             });
             return updatedProfile;
         }));

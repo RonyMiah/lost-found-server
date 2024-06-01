@@ -35,11 +35,11 @@ router.post(
 router.patch(
   '/update-my-profile',
   auth(userRole.ADMIN, userRole.SUPPER_ADMIN, userRole.USER),
-  fileUploader.upload.single('file'),
-  (req: Request, res: Response, next: NextFunction) => {
-    req.body = JSON.parse(req.body.data);
-    next();
-  },
+  // fileUploader.upload.single('file'),
+  // (req: Request, res: Response, next: NextFunction) => {
+  //   req.body = JSON.parse(req.body.data);
+  //   next();
+  // },
   UserControllers.updateProfile
 );
 

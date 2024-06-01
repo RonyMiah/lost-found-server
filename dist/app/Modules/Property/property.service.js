@@ -229,8 +229,32 @@ const getSingleLostItems = (id) => __awaiter(void 0, void 0, void 0, function* (
     });
     return result;
 });
+const getSingleFoundItems = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.foundItem.findUniqueOrThrow({
+        where: {
+            id,
+        },
+    });
+    return result;
+});
+const getSingleClaimItems = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.claim.findUniqueOrThrow({
+        where: {
+            id,
+        },
+    });
+    return result;
+});
 const deleteLostItems = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.lostItem.delete({
+        where: {
+            id,
+        },
+    });
+    return result;
+});
+const deleteFoundItems = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.foundItem.delete({
         where: {
             id,
         },
@@ -251,6 +275,35 @@ const updateLostItems = (id, payload) => __awaiter(void 0, void 0, void 0, funct
     });
     return result;
 });
+const updateFoundItems = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    yield prisma_1.default.foundItem.findUniqueOrThrow({
+        where: {
+            id,
+        },
+    });
+    const result = yield prisma_1.default.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+        const updateFoundItemsData = yield tx.foundItem.update({
+            where: {
+                id,
+            },
+            data: payload,
+        });
+        yield tx.claim.updateMany({
+            where: {
+                foundId: id,
+            },
+            data: payload,
+        });
+        return updateFoundItemsData;
+    }));
+    // const result = await prisma.foundItem.update({
+    //   where: {
+    //     id,
+    //   },
+    //   data: payload,
+    // });
+    return result;
+});
 exports.PropertyServices = {
     createLostProperty,
     createFoundProperty,
@@ -263,4 +316,8 @@ exports.PropertyServices = {
     getSingleLostItems,
     updateLostItems,
     deleteLostItems,
+    updateFoundItems,
+    deleteFoundItems,
+    getSingleFoundItems,
+    getSingleClaimItems,
 };

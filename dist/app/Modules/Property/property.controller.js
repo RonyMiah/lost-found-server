@@ -109,7 +109,27 @@ const getSingleLostItems = (0, catchAsync_1.default)((req, res) => __awaiter(voi
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'Data Fetched Successfully !',
+        message: 'Data Retrived Successfully !',
+        data: result,
+    });
+}));
+const getSingleFoundItems = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield property_service_1.PropertyServices.getSingleFoundItems(id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Data Retrived Successfully !',
+        data: result,
+    });
+}));
+const getSingleClaimItems = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield property_service_1.PropertyServices.getSingleClaimItems(id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Data Retrived Successfully !',
         data: result,
     });
 }));
@@ -123,10 +143,31 @@ const deleteLostItems = (0, catchAsync_1.default)((req, res) => __awaiter(void 0
         data: result,
     });
 }));
+const deleteFoundItems = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield property_service_1.PropertyServices.deleteFoundItems(id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Deleted Successfully !',
+        data: result,
+    });
+}));
 const updateLostItems = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const data = req.body;
     const result = yield property_service_1.PropertyServices.updateLostItems(id, data);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Updated Successfully !',
+        data: result,
+    });
+}));
+const updateFoundItems = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const data = req.body;
+    const result = yield property_service_1.PropertyServices.updateFoundItems(id, data);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
@@ -146,4 +187,8 @@ exports.PropertyControllers = {
     updateLostItems,
     getSingleLostItems,
     deleteLostItems,
+    updateFoundItems,
+    deleteFoundItems,
+    getSingleFoundItems,
+    getSingleClaimItems
 };

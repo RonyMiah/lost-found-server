@@ -128,7 +128,7 @@ const getSingleLostItems = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Data Fetched Successfully !',
+    message: 'Data Retrived Successfully !',
     data: result,
   });
 });
@@ -139,7 +139,18 @@ const getSingleFoundItems = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Data Fetched Successfully !',
+    message: 'Data Retrived Successfully !',
+    data: result,
+  });
+});
+const getSingleClaimItems = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await PropertyServices.getSingleClaimItems(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Data Retrived Successfully !',
     data: result,
   });
 });
@@ -205,5 +216,6 @@ export const PropertyControllers = {
   deleteLostItems,
   updateFoundItems,
   deleteFoundItems,
-  getSingleFoundItems
+  getSingleFoundItems,
+  getSingleClaimItems
 };

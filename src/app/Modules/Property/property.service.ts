@@ -256,6 +256,14 @@ const getSingleFoundItems = async (id: string) => {
   });
   return result;
 };
+const getSingleClaimItems = async (id: string) => {
+  const result = await prisma.claim.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+  return result;
+};
 const deleteLostItems = async (id: string) => {
   const result = await prisma.lostItem.delete({
     where: {
@@ -296,12 +304,29 @@ const updateFoundItems = async (id: string, payload: any) => {
     },
   });
 
-  const result = await prisma.foundItem.update({
-    where: {
-      id,
-    },
-    data: payload,
+  const result = await prisma.$transaction(async (tx) => {
+    const updateFoundItemsData = await tx.foundItem.update({
+      where: {
+        id,
+      },
+      data: payload,
+    });
+    await tx.claim.updateMany({
+      where: {
+        foundId: id,
+      },
+      data: payload,
+    });
+
+    return updateFoundItemsData;
   });
+
+  // const result = await prisma.foundItem.update({
+  //   where: {
+  //     id,
+  //   },
+  //   data: payload,
+  // });
 
   return result;
 };
@@ -321,4 +346,5 @@ export const PropertyServices = {
   updateFoundItems,
   deleteFoundItems,
   getSingleFoundItems,
+  getSingleClaimItems,
 };

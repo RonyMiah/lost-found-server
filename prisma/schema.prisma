@@ -80,6 +80,7 @@ model FoundItem {
   upodatedAt    DateTime         @updatedAt
   userId        String
   user          User             @relation(fields: [userId], references: [id])
+  Claim         Claim[]
 
   @@map("founditems")
 }
@@ -94,6 +95,8 @@ model Claim {
   upodatedAt          DateTime    @updatedAt
   userId              String
   user                User        @relation(fields: [userId], references: [id])
+  foundId             String
+  foundItems          FoundItem   @relation(fields: [foundId], references: [id])
 
   @@map("claims")
 }
