@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 
-
 import AppError from '../errors/AppError';
 import httpStatus from 'http-status';
 import config from '../config';

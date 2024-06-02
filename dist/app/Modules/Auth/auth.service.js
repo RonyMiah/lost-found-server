@@ -68,8 +68,11 @@ const changePassword = (user, payload) => __awaiter(void 0, void 0, void 0, func
             status: client_1.userStatus.ACTIVE,
         },
     });
+    console.log(userData, '======');
     //check old password
     const isCurrectPassword = yield bcrypt_1.default.compare(payload.oldPassword, userData.password);
+    //clg data
+    console.log(isCurrectPassword, 'isCurrectPassword...');
     if (!isCurrectPassword) {
         throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'password Incurrect !');
     }

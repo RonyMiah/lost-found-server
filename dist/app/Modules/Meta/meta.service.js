@@ -20,10 +20,16 @@ const fetchDatabaseMetadata = (user) => __awaiter(void 0, void 0, void 0, functi
         const totalLostItems = yield prisma_1.default.lostItem.count();
         const totalFoundItems = yield prisma_1.default.foundItem.count();
         const totalClaimItems = yield prisma_1.default.claim.count();
+        const totalReunions = yield prisma_1.default.claim.count({
+            where: {
+                status: 'approved',
+            },
+        });
         return {
             totalLostItems,
             totalFoundItems,
             totalClaimItems,
+            totalReunions,
         };
     }
 });

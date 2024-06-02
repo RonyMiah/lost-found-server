@@ -256,13 +256,7 @@ const updateProfile = async (user: IAuthUser, payload: any) => {
     });
   } else if (userInfo.role === userRole.USER) {
     profileInfo = await prisma.$transaction(async (tx) => {
-      await tx.user.update({
-        where: {
-          email: userInfo.email,
-        },
-        data: payload,
-      });
-      const updatedProfile = await tx.admin.update({
+      const updatedProfile = await tx.user.update({
         where: {
           email: userInfo.email,
         },

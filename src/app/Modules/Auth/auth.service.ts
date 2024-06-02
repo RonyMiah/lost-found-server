@@ -83,11 +83,16 @@ const changePassword = async (
     },
   });
 
+  console.log(userData, '======');
   //check old password
   const isCurrectPassword: boolean = await bcrypt.compare(
     payload.oldPassword,
     userData.password
   );
+
+  //clg data
+  console.log(isCurrectPassword, 'isCurrectPassword...');
+
   if (!isCurrectPassword) {
     throw new AppError(httpStatus.UNAUTHORIZED, 'password Incurrect !');
   }

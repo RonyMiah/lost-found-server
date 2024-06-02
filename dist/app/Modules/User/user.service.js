@@ -236,13 +236,7 @@ const updateProfile = (user, payload) => __awaiter(void 0, void 0, void 0, funct
     }
     else if (userInfo.role === client_1.userRole.USER) {
         profileInfo = yield prisma_1.default.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
-            yield tx.user.update({
-                where: {
-                    email: userInfo.email,
-                },
-                data: payload,
-            });
-            const updatedProfile = yield tx.admin.update({
+            const updatedProfile = yield tx.user.update({
                 where: {
                     email: userInfo.email,
                 },
