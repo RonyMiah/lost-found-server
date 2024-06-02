@@ -63,13 +63,21 @@ If you run this project, you will need to add the following environment variable
 `JWT_REFRESH_SEECRET = Your Refresh Secret`
 
 `JWT_REFRESH_EXPIRE = "30d"`
+
 `RESET_PASS_SECRET = Your Reset Passs secret"`
+
 `RESET_PASS_EXPIRE = "5m"`
+
 `RESET_PASS_LINK = "http://localhost:3000/reset-password"`
+
 `NODE_MAILER_EMAIL = your node mailer email`
+
 `NODE_MAILER_PASS =  your node mailer password`
+
 `CLOUD_NAME =  your cloudinary name`
+
 `CLOUD_API_KEY = your cloudinary api_key`
+
 `CLOUD_API_SECRET = your cloudinary api_secret_key`
 
 ## 🚀 Thanks EveryOne Have a good day.
