@@ -78,12 +78,12 @@ const changePassword = async (
 ) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
-      email: user.email,
+      id: user.id,
       status: userStatus.ACTIVE,
     },
   });
 
-  console.log(userData, '======');
+  // console.log(userData, '======');
   //check old password
   const isCurrectPassword: boolean = await bcrypt.compare(
     payload.oldPassword,
@@ -91,7 +91,7 @@ const changePassword = async (
   );
 
   //clg data
-  console.log(isCurrectPassword, 'isCurrectPassword...');
+  // console.log(isCurrectPassword, 'isCurrectPassword...');
 
   if (!isCurrectPassword) {
     throw new AppError(httpStatus.UNAUTHORIZED, 'password Incurrect !');
@@ -102,7 +102,7 @@ const changePassword = async (
 
   await prisma.user.update({
     where: {
-      email: userData.email,
+      id: userData.id,
     },
     data: {
       password: hashedPassword,

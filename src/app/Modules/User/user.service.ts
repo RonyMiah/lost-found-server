@@ -144,7 +144,7 @@ const getAllDataFromDB = async (params: any, options: TPaginationOptions) => {
   };
 };
 
-const changeProfileStatus = async (id: string, data: userRole) => {
+const changeProfileStatus = async (id: string, data: any) => {
   await prisma.user.findUniqueOrThrow({
     where: {
       id,
@@ -172,11 +172,12 @@ const changeProfileStatus = async (id: string, data: userRole) => {
 const getMe = async (user: IAuthUser) => {
   const userInfo = await prisma.user.findUniqueOrThrow({
     where: {
-      email: user?.email,
+      id: user?.id,
     },
     select: {
       id: true,
       email: true,
+      userName: true,
       role: true,
       status: true,
     },
@@ -186,19 +187,19 @@ const getMe = async (user: IAuthUser) => {
   if (userInfo.role === userRole.SUPPER_ADMIN) {
     profileInfo = await prisma.admin.findUnique({
       where: {
-        email: userInfo.email,
+        id: userInfo?.id,
       },
     });
   } else if (userInfo.role === userRole.ADMIN) {
     profileInfo = await prisma.admin.findUnique({
       where: {
-        email: userInfo.email,
+        id: userInfo?.id,
       },
     });
   } else if (userInfo.role === userRole.USER) {
     profileInfo = await prisma.user.findUnique({
       where: {
-        email: userInfo.email,
+        id: userInfo?.id,
       },
     });
   }
@@ -209,7 +210,7 @@ const getMe = async (user: IAuthUser) => {
 const updateProfile = async (user: IAuthUser, payload: any) => {
   const userInfo = await prisma.user.findUniqueOrThrow({
     where: {
-      email: user?.email,
+      id: user?.id,
     },
   });
 
@@ -224,13 +225,13 @@ const updateProfile = async (user: IAuthUser, payload: any) => {
     profileInfo = await prisma.$transaction(async (tx) => {
       await tx.user.update({
         where: {
-          email: userInfo.email,
+          id: userInfo?.id,
         },
         data: payload,
       });
       const updatedProfile = await tx.admin.update({
         where: {
-          email: userInfo.email,
+          id: userInfo?.id,
         },
         data: payload,
       });
@@ -241,13 +242,13 @@ const updateProfile = async (user: IAuthUser, payload: any) => {
     profileInfo = await prisma.$transaction(async (tx) => {
       await tx.user.update({
         where: {
-          email: userInfo.email,
+          id: userInfo?.id,
         },
         data: payload,
       });
       const updatedProfile = await tx.admin.update({
         where: {
-          email: userInfo.email,
+          id: userInfo?.id,
         },
         data: payload,
       });
@@ -258,7 +259,7 @@ const updateProfile = async (user: IAuthUser, payload: any) => {
     profileInfo = await prisma.$transaction(async (tx) => {
       const updatedProfile = await tx.user.update({
         where: {
-          email: userInfo.email,
+          id: userInfo?.id,
         },
         data: payload,
       });

@@ -9,7 +9,7 @@ import { Prisma } from '@prisma/client';
 const createLostProperty = async (payload: any, user: IAuthUser) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
-      email: user?.email,
+      id: user?.id,
     },
   });
 
@@ -31,7 +31,7 @@ const createLostProperty = async (payload: any, user: IAuthUser) => {
 const createFoundProperty = async (payload: any, user: IAuthUser) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
-      email: user?.email,
+      id: user?.id,
     },
   });
 
@@ -53,7 +53,7 @@ const createFoundProperty = async (payload: any, user: IAuthUser) => {
 const claimProperty = async (params: any, user: IAuthUser) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
-      email: user?.email,
+      id: user?.id,
     },
   });
 
@@ -75,7 +75,7 @@ const claimProperty = async (params: any, user: IAuthUser) => {
 const myClaimItem = async (user: IAuthUser) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
-      email: user?.email,
+      id: user?.id,
     },
   });
 
@@ -90,7 +90,7 @@ const myClaimItem = async (user: IAuthUser) => {
 const myLostItem = async (user: IAuthUser) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
-      email: user?.email,
+      id: user?.id,
     },
   });
 
@@ -105,7 +105,7 @@ const myLostItem = async (user: IAuthUser) => {
 const myFoundItem = async (user: IAuthUser) => {
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
-      email: user?.email,
+      id: user?.id,
     },
   });
 
